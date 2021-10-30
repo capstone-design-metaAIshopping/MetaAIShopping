@@ -310,6 +310,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Prefab_Sehui
       objectReference: {fileID: 0}
+    - target: {fileID: 2685026672372773975, guid: cae5e463532fa294081da5e36b116f94, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5155673325339162202, guid: cae5e463532fa294081da5e36b116f94, type: 3}
       propertyPath: m_RootOrder
       value: 2
