@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "130171316793",
+    "firebase_url": "https://metaaishopping-default-rtdb.firebaseio.com",
+    "project_id": "metaaishopping",
+    "storage_bucket": "metaaishopping.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:130171316793:android:efc9b02aa547526aac7be8",
+        "android_client_info": {
+          "package_name": "com.MetaCashier.metaAIshopping"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "130171316793-shhu8v03ri1fultqrqvappksgmk16kit.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCQiWEq7c6KxFHpu9_dW7nGd6eoFlqYie8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "130171316793-shhu8v03ri1fultqrqvappksgmk16kit.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

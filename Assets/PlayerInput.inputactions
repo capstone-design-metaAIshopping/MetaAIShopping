@@ -1,0 +1,74 @@
+{
+    "name": "PlayerInput",
+    "maps": [
+        {
+            "name": "player",
+            "id": "6636c2ad-ad97-487e-9cf0-907fbf220a3d",
+            "actions": [
+                {
+                    "name": "move",
+                    "type": "Value",
+                    "id": "7e81c24d-a1cb-4448-bb11-a5cd87cf767c",
+                    "expectedControlType": "Vector2",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "trigger",
+                    "type": "Button",
+                    "id": "f5cb2c61-1076-48a2-acdb-6ce9b04cc5b6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "30cc9d45-7ce9-40e5-9c48-75c1c3e2eb4c",
+                    "path": "<XRController>{LeftHand}/thumbstick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6f1878bb-d984-48f7-9628-b842c94ce82d",
+                    "path": "<XRController>{RightHand}/thumbstick",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "55e5e4b6-d990-46ab-b275-4618c45e3cdc",
+                    "path": "<XRController>{LeftHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "trigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a23459fe-61b7-47ed-960f-6c7b4aa36fe4",
+                    "path": "<XRController>{RightHand}/triggerPressed",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "trigger",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}
