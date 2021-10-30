@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class ClickObject : MonoBehaviour
 {
@@ -21,6 +22,8 @@ public class ClickObject : MonoBehaviour
 
     public static ClickObject _Instance;
     public GameObject buyListOnePrefab;
+    public GameObject _retroSphere;
+    public GameObject _CloneProduct;
     private void Awake()
     {
         _Instance = this;
@@ -37,16 +40,18 @@ public class ClickObject : MonoBehaviour
             {
                 GameObject CurrentTouch = hit.transform.gameObject;
                 Debug.Log("클릭한 오브젝트 이름 : " + hit.transform.gameObject.name);
+                string productName = hit.transform.gameObject.name;
+                productName = productName.Replace("(Clone)", "");
                 //클릭한 오브젝트 이름에서 숫자, 띄어쓰기, (,) 지우고 
                 //이름이 파이어베이스 안에 있는 name과 이름이 같다면, 
-                if (FirebaseCtrl._Instance.productDict.ContainsKey(hit.transform.gameObject.name))
+                if (FirebaseCtrl._Instance.productDict.ContainsKey(productName))
                 {
-                    Debug.Log("품절인가? " + FirebaseCtrl._Instance.productDict[hit.transform.gameObject.name].soldOut.ToString());
-                    nameText.text = hit.transform.gameObject.name;
-                    priceText.text = FirebaseCtrl._Instance.productDict[hit.transform.gameObject.name].price.ToString();
+                    Debug.Log("품절인가? " + FirebaseCtrl._Instance.productDict[productName].soldOut.ToString());
+                    nameText.text = productName;
+                    priceText.text = FirebaseCtrl._Instance.productDict[productName].price.ToString();
                     UICtrl._Instance.OpenClose_Product_Info();
                     //파이어베이스에서 가격, 품절인지 아닌지 받아온다.
-                   if ( FirebaseCtrl._Instance.productDict[hit.transform.gameObject.name].soldOut.ToString() == "1")
+                   if ( FirebaseCtrl._Instance.productDict[productName].soldOut.ToString() == "1")
                     {
                         //품절 버튼 활성화
                         soldOutBtn.gameObject.SetActive(true);
@@ -64,6 +69,19 @@ public class ClickObject : MonoBehaviour
 
                     }
                 }
+                if (hit.collider.name == "티셔츠")
+                {
+                    //해당 오브젝트 복제
+                    _retroSphere =  Instantiate(UICtrl._Instance.retroSphere, Camera.main.transform.position, Quaternion.identity);
+                    UICtrl._Instance.shoppingCenter.SetActive(false);
+                    _CloneProduct = Instantiate(hit.collider.gameObject, this.transform.position + new Vector3(0.0f,1.5f,-1.0f), Quaternion.Euler(new Vector3(90.0f, 0.0f, 0.0f)));
+                    // SceneManager.LoadScene("retro", LoadSceneMode.Additive);
+                    //1,2,3층 패널을 없애고
+                    UICtrl._Instance.FloorPanel.SetActive(false);
+                    //뒤로가기 버튼 보이게
+                    UICtrl._Instance.BackToShoppingBtn.SetActive(true);
+                }
+               
             }
         }
     }
