@@ -15,18 +15,18 @@ public class ViewCtrl : MonoBehaviour
     }
     private void Start()
     {
-        rb = GetComponent<Rigidbody>();
-        ag = GetComponent<NavMeshAgent>();
+        //rb = GetComponent<Rigidbody>();
+        //ag = GetComponent<NavMeshAgent>();
 
         // Disable agent control of the transform
-        ag.updatePosition = false;
-        ag.updateRotation = false;
+        //ag.updatePosition = false;
+        //ag.updateRotation = false;
     }
     // Update is called once per frame
     void Update()
     {
-        rb.velocity = ag.velocity;
-        ag.nextPosition = rb.position;
+        //rb.velocity = ag.velocity;
+        //ag.nextPosition = rb.position;
         /*if (Input.GetKey(KeyCode.A))
         {
             transform.localPosition = new Vector3(0f, 1.6f, 0f);

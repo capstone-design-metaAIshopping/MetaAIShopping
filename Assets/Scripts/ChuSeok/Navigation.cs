@@ -54,11 +54,13 @@ public class Navigation : MonoBehaviour
     Transform kickBoard;
     [SerializeField]
     Transform wine;
+    GameObject[] products;
 
     void Start()
     {
-       // LogSystem.InstallDefaultReactors();
-       // Runnable.Run(CreateService());
+        // LogSystem.InstallDefaultReactors();
+        // Runnable.Run(CreateService());
+        products = GameObject.FindGameObjectsWithTag("product");
 
         player = GetComponent<NavMeshAgent>();
         //path = new NavMeshPath();
@@ -103,7 +105,7 @@ public class Navigation : MonoBehaviour
         {
             if (value && !_service.IsListening)
             {
-                _service.RecognizeModel = (string.IsNullOrEmpty(_recognizeModel) ? "en-US_BroadbandModel" : _recognizeModel);
+                _service.RecognizeModel = (string.IsNullOrEmpty(_recognizeModel) ? "ko-KR_BroadbandModel" : _recognizeModel);
                 _service.DetectSilence = true;
                 _service.EnableWordConfidence = true;
                 _service.EnableTimestamps = true;
@@ -220,13 +222,26 @@ public class Navigation : MonoBehaviour
                     //                    string text = string.Format("{0} ({1}, {2:0.00})\n", alt.transcript, res.final ? "Final" : "Interim", alt.confidence);
                     Log.Debug("ExampleStreaming.OnRecognize()", text);
                     UICtrl._Instance.ResultsField.text = text;
-                   
+                    
+                    foreach(GameObject product in products)
+                    {
+                        if(text.Contains(product.name))
+                        {
+                            player.ResetPath();
+                            //ViewCtrl._Instance.Move1F();
+                            player.SetDestination(product.transform.position);
+                            //transform.LookAt(product.transform);
+                            Debug.Log(string.Format("{0}·Î ÀÌµ¿", product.name));
+                            break;
+                        }
+                    }
+                    /*
                     if (UICtrl._Instance.ResultsField.text.Contains("T. shirts") || UICtrl._Instance.ResultsField.text.Contains("Æ¼¼ÅÃ÷"))
                     {
                         player.ResetPath();
                         ViewCtrl._Instance.Move1F();
                         player.SetDestination(tShirt.position);
-                        
+                        transform.LookAt(tShirt);
                         Debug.Log("Æ¼¼ÅÃ÷·Î ÀÌµ¿");
                     }
                     else if (UICtrl._Instance.ResultsField.text.Contains("¿ÍÀÎ"))
@@ -234,9 +249,11 @@ public class Navigation : MonoBehaviour
                         player.ResetPath();
                         ViewCtrl._Instance.Move1F();
                         player.SetDestination(wine.position);
+                        transform.LookAt(wine);
                         Debug.Log("¿ÍÀÎÀ¸·Î ÀÌµ¿");
                     }
-                    else if (UICtrl._Instance.ResultsField.text.Contains("ÀÏ Ãþ") || UICtrl._Instance.ResultsField.text.Contains("ÀÏÃþ"))
+                    */
+                    if (UICtrl._Instance.ResultsField.text.Contains("ÀÏ Ãþ") || UICtrl._Instance.ResultsField.text.Contains("ÀÏÃþ"))
                     {
                         player.ResetPath();
                         ViewCtrl._Instance.Move1F();
@@ -257,7 +274,7 @@ public class Navigation : MonoBehaviour
                         Debug.Log("3ÃþÀÌµ¿");
                         break;
                     }
-                    else if ( UICtrl._Instance.ResultsField.text.Contains("¸ØÃç") || UICtrl._Instance.ResultsField.text.Contains("±×¸¸"))
+                    if ( UICtrl._Instance.ResultsField.text.Contains("¸ØÃç") || UICtrl._Instance.ResultsField.text.Contains("±×¸¸") || UICtrl._Instance.ResultsField.text.Contains("¸Ø Ãç"))
                     {
                         player.isStopped = true;
                         player.ResetPath();
@@ -265,7 +282,7 @@ public class Navigation : MonoBehaviour
                         transform.GetComponent<LineRenderer>().enabled = false;
                         break;
                     }
-
+                    transform.GetComponent<LineRenderer>().enabled = true;
                 }
                 if (res.keywords_result != null && res.keywords_result.keyword != null)
                 {
@@ -327,8 +344,8 @@ public class Navigation : MonoBehaviour
     }
     private void DisplayLineDestination()
     {
-        transform.GetComponent<LineRenderer>().enabled = true;
-        Debug.Log("¼± ±×¸®±â");
+        //transform.GetComponent<LineRenderer>().enabled = true;
+        //Debug.Log("¼± ±×¸®±â");
         if (player.path.corners.Length < 2) return;
         int i = 1; 
         while (i < player.path.corners.Length)
