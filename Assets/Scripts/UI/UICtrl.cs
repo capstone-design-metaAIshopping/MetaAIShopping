@@ -32,6 +32,14 @@ public class UICtrl : MonoBehaviour
     public GameObject Agent_voice_Panel;
     [Tooltip("Text field to display the results of streaming.")]
     public Text ResultsField;
+
+    [Header("ChangeSpace")]
+    public GameObject FloorPanel;
+    public GameObject BackToShoppingBtn;
+
+    [Header("BackGoundSpace")]
+    public GameObject shoppingCenter;
+    public GameObject retroSphere;
     private void Awake()
     {
         _Instance = this;
@@ -151,6 +159,14 @@ public class UICtrl : MonoBehaviour
         Setting_Panel.SetActive(false);
     }
 
-
+    public void Click_BackToShopping()
+    {
+        FloorPanel.SetActive(true);
+        BackToShoppingBtn.SetActive(false);
+        shoppingCenter.SetActive(true);
+        Destroy(ClickObject._Instance._retroSphere);
+        Destroy(ClickObject._Instance._CloneProduct);
+        Product_Info_Panel.SetActive(false);
+    }
 
 }

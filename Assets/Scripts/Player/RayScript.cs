@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.EventSystems;
-
+using UnityEngine.SceneManagement;
 public class RayScript : MonoBehaviour
 {
     public GraphicRaycaster graphicRaycaster; //Canvas에 있는 GraphicRaycaster
@@ -50,7 +50,7 @@ public class RayScript : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space))
            SelectProduct_();
     }
-
+    
     public void SelectProduct(InputAction.CallbackContext context)
     {
         if (context.canceled)
@@ -61,6 +61,11 @@ public class RayScript : MonoBehaviour
                 Debug.Log("Ray충돌감지" + hit.transform.name);
                 if (hit.collider.tag == "product")
                 {
+                    /*if (hit.collider.name == "tshirt")
+                    {
+                        SceneManager.LoadScene("retro", LoadSceneMode.Additive);
+                    }
+                    */
                     Info_Pannel.gameObject.SetActive(true);
                     Debug.Log("상품 선택");
                     Debug.Log("클릭한 오브젝트 이름 : " + hit.transform.gameObject.name);
@@ -115,27 +120,54 @@ public class RayScript : MonoBehaviour
             Debug.Log("Ray충돌감지" + hit.transform.name);
             if (hit.collider.tag == "product")
             {
+                if (hit.collider.name == "tshirt")
+                {
+                    SceneManager.LoadScene("retro", LoadSceneMode.Additive);
+                }
                 Info_Pannel.gameObject.SetActive(true);
                 Debug.Log("상품 선택");
+                Debug.Log("클릭한 오브젝트 이름 : " + hit.transform.gameObject.name);
                 if (FirebaseCtrl._Instance.productDict.ContainsKey(hit.transform.name))
                 {
+                    Debug.Log("품절인가? " + FirebaseCtrl._Instance.productDict[hit.transform.gameObject.name].soldOut.ToString());
                     name_text.text = hit.transform.name;
                     price_text.text = FirebaseCtrl._Instance.productDict[hit.transform.name].price.ToString();
-                    //amount_text.text = FirebaseCtrl.productDict[hit.transform.name].amount.ToString();
+                    // amount_text.text = FirebaseCtrl.productDict[hit.transform.name].amount.ToString();
+
+                    //파이어베이스에서 가격, 품절인지 아닌지 받아온다.
+                    if (FirebaseCtrl._Instance.productDict[hit.transform.gameObject.name].soldOut.ToString() == "1")
+                    {
+                        //품절 버튼 활성화
+                        soldOutBtn.gameObject.SetActive(true);
+                        //구매버튼 비활성화
+                        buyBtn.gameObject.SetActive(false);
+                        //수량 체크 못하게
+                        Debug.Log("해당 상품은 품절 상품입니다");
+                    }
+                    else
+                    {
+                        soldOutBtn.gameObject.SetActive(false);
+                        buyBtn.gameObject.SetActive(true);
+                        //구매버튼 활성화
+                        Debug.Log("구매 가능한 상품입니다.");
+
+                    }
                 }
 
             }
-
+            //버튼 속성이라면
             if (hit.collider.gameObject.GetComponent<Button>() != null)
             {
                 Debug.Log("버튼 클릭");
                 Button btn = hit.collider.gameObject.GetComponent<Button>();
                 if (btn != null)
                 {
+                    btn.Select();
                     btn.onClick.Invoke();
                 }
             }
         }
-    }
 
+    }
+    //레이가 닿았는데 태그가 product면 빛나게
 }
