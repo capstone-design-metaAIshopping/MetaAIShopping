@@ -4,11 +4,11 @@
         _MainTex ("Albedo", 2D) = "white" {}
         _BumpMap("BumpMap", 2D) = "bump" {}
         _OutlineColor("OutlineColor", Color) = (1,1,1,1)
-        _Outline("Outline", Range(0.0005, 0.01)) = 0.01
+        _Outline("Outline", Range(0.1, 3.0)) = 0.6
     }
  
     SubShader {
-        Tags { "RenderType"="Opaque" }
+        Tags { "RenderType"="Transparent" }
         Cull front
  
         // Pass1

@@ -39,7 +39,11 @@ public class UICtrl : MonoBehaviour
 
     [Header("BackGoundSpace")]
     public GameObject shoppingCenter;
-    public GameObject retroSphere;
+    public GameObject rollerSphere;
+    public GameObject houseSphere;
+    public GameObject roadSphere;
+    public GameObject basketballSphere;
+    public GameObject fallSphere;
     private void Awake()
     {
         _Instance = this;
@@ -164,7 +168,7 @@ public class UICtrl : MonoBehaviour
         FloorPanel.SetActive(true);
         BackToShoppingBtn.SetActive(false);
         shoppingCenter.SetActive(true);
-        Destroy(ClickObject._Instance._retroSphere);
+        Destroy(ClickObject._Instance._NewSphere);
         Destroy(ClickObject._Instance._CloneProduct);
         Product_Info_Panel.SetActive(false);
     }

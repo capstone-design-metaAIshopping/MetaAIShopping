@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System;
 
 public class ClickObject : MonoBehaviour
 {
@@ -22,7 +23,7 @@ public class ClickObject : MonoBehaviour
 
     public static ClickObject _Instance;
     public GameObject buyListOnePrefab;
-    public GameObject _retroSphere;
+    public GameObject _NewSphere;
     public GameObject _CloneProduct;
     private void Awake()
     {
@@ -69,10 +70,10 @@ public class ClickObject : MonoBehaviour
 
                     }
                 }
-                if (hit.collider.name == "티셔츠")
+                if (hit.collider.gameObject.name == "티셔츠")
                 {
                     //해당 오브젝트 복제
-                    _retroSphere =  Instantiate(UICtrl._Instance.retroSphere, Camera.main.transform.position, Quaternion.identity);
+                    _NewSphere =  Instantiate(UICtrl._Instance.rollerSphere, Camera.main.transform.position, Quaternion.identity);
                     UICtrl._Instance.shoppingCenter.SetActive(false);
                     _CloneProduct = Instantiate(hit.collider.gameObject, this.transform.position + new Vector3(0.0f,1.5f,-1.0f), Quaternion.Euler(new Vector3(90.0f, 0.0f, 0.0f)));
                     // SceneManager.LoadScene("retro", LoadSceneMode.Additive);
@@ -80,6 +81,32 @@ public class ClickObject : MonoBehaviour
                     UICtrl._Instance.FloorPanel.SetActive(false);
                     //뒤로가기 버튼 보이게
                     UICtrl._Instance.BackToShoppingBtn.SetActive(true);
+                }
+                foreach(string s in ChangeSpace._Instance.spaceDict.Keys)
+                {
+                    //Debug.Log(s); //키들
+                    string[] values;
+                    ChangeSpace._Instance.spaceDict.TryGetValue(s, out values);
+                    if(Array.Exists(values, x => x.Equals(hit.collider.gameObject.name)))
+                    {
+                        Debug.Log(s + "공간으로 이동");
+                        //s 공간으로 이동
+                        switch (s)
+                        {   
+                            case "집": _NewSphere = Instantiate(UICtrl._Instance.houseSphere, Camera.main.transform.position, Quaternion.identity); break;
+                            case "롤러장": _NewSphere = Instantiate(UICtrl._Instance.rollerSphere, Camera.main.transform.position, Quaternion.identity); break;
+                            case "도로": _NewSphere = Instantiate(UICtrl._Instance.roadSphere, Camera.main.transform.position, Quaternion.identity); break;
+                            case "농구장": _NewSphere = Instantiate(UICtrl._Instance.basketballSphere, Camera.main.transform.position, Quaternion.identity); break;
+                            case "가을": _NewSphere = Instantiate(UICtrl._Instance.fallSphere, Camera.main.transform.position, Quaternion.identity); break;
+                        }
+                        UICtrl._Instance.shoppingCenter.SetActive(false);
+                        _CloneProduct = Instantiate(hit.collider.gameObject, this.transform.position + new Vector3(0.0f, 1.5f, -1.0f), Quaternion.Euler(new Vector3(90.0f, 0.0f, 0.0f)));
+                        //1,2,3층 패널을 없애고
+                        UICtrl._Instance.FloorPanel.SetActive(false);
+                        //뒤로가기 버튼 보이게
+                        UICtrl._Instance.BackToShoppingBtn.SetActive(true);
+                        break;
+                    }
                 }
                
             }

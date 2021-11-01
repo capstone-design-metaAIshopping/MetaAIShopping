@@ -8,12 +8,12 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: highlight
-  m_Shader: {fileID: 4800000, guid: f7bbc454eff6bd542bcb1c995a9794a2, type: 3}
+  m_Shader: {fileID: 4800000, guid: 55758d109b1411345950c0c905c2d8a6, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 1000
+  m_CustomRenderQueue: 1999
   stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
@@ -70,7 +70,7 @@ Material:
     - _Metallic: 0
     - _Mode: 0
     - _OcclusionStrength: 1
-    - _Outline: 0.05
+    - _Outline: 2
     - _OutlineWidth: 1.12
     - _Parallax: 0.02
     - _SmoothnessTextureChannel: 0
@@ -82,4 +82,5 @@ Material:
     - _Color: {r: 1, g: 1, b: 1, a: 0}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}
     - _MainTex: {r: 1, g: 1, b: 1, a: 0}
-    - _OutlineColor: {r: 0.4056604, g: 0.7838764, b: 1, a: 1}
+    - _OutlineColor: {r: 0.12293559, g: 0.4056604, b: 0, a: 1}
+  m_BuildTextureStacks: []

@@ -21,6 +21,10 @@ public class RayScript : MonoBehaviour
     public Text price_text;
    // public Text amount_text;
     public static bool IsPause = false;
+
+    public Material highlight; //외곽선 material
+    Material originalMaterial;
+    GameObject lastHighlightedObject;
     // Start is called before the first frame update
     void Start()
     {
@@ -34,8 +38,31 @@ public class RayScript : MonoBehaviour
         layser.SetPosition(0, transform.position); // 첫번째 시작점 위치
         layser.SetPosition(1, transform.position + MaxDistance * RayDir);
 
+        // Mouse의 포지션을 Ray cast 로 변환
+        RaycastHit hit;
+#if UNITY_EDITOR
+        Ray cast = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        if (Physics.Raycast(cast, out hit)) //마우스 레이(디버그 용)
+        {
+            //상품이면
+            if (hit.collider.gameObject.tag == "product")
+            {
+                //외곽선 보이게
+                originalMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().material;
+                HighlightObject(hit.collider.gameObject);
+            }
+            else
+            {
+                ClearHighlighted();
+            }
+            // if(highlightObj != null)
+            //      highlightObj.GetComponent<MeshRenderer>().material = default;
+        }
+#else
         if (Physics.Raycast(transform.position, RayDir, out hit, MaxDistance)) //(Ray 원점, Ray 방향, 충돌 감지할 RaycastHit, Ray 거리(길이))
         {
+            //버튼 속성이면
             if (hit.collider.gameObject.GetComponent<Button>() != null)
             {
                 Debug.Log("버튼 지나침");
@@ -45,12 +72,51 @@ public class RayScript : MonoBehaviour
                     btn.Select();
                 }
             }
+            //상품이면
+            if (hit.collider.gameObject.tag == "product")
+            {
+                //외곽선 보이게
+                originalMaterial = hit.collider.gameObject.GetComponent<MeshRenderer>().material;
+                HighlightObject(hit.collider.gameObject);
+            }
+            else
+            {
+                ClearHighlighted();
+            }
+            
         }
+      
+#endif
+        /*
         //test용
         if (Input.GetKeyDown(KeyCode.Space))
            SelectProduct_();
+        */
     }
-    
+
+    void HighlightObject(GameObject gameObject)
+    {
+        if (lastHighlightedObject != gameObject)
+        {
+            ClearHighlighted();
+            Debug.Log(gameObject.name + " 하이라이트 키기");
+            gameObject.GetComponent<MeshRenderer>().materials = new Material[2]{  originalMaterial, highlight };
+            //gameObject.GetComponent<MeshRenderer>().material = highlight;
+            lastHighlightedObject = gameObject;
+        }
+
+    }
+
+    void ClearHighlighted()
+    {
+        if (lastHighlightedObject != null)
+        {
+           // Debug.Log(lastHighlightedObject.name + " 하이라이트 없애기");
+            if(lastHighlightedObject.GetComponent<MeshRenderer>().materials.Length > 1)
+                lastHighlightedObject.GetComponent<Renderer>().materials = new Material[1] { originalMaterial };
+            lastHighlightedObject = null;
+        }
+    }
     public void SelectProduct(InputAction.CallbackContext context)
     {
         if (context.canceled)
