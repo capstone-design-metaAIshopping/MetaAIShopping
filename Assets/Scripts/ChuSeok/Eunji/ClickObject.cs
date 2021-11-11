@@ -25,6 +25,7 @@ public class ClickObject : MonoBehaviour
     public GameObject buyListOnePrefab;
     public GameObject _NewSphere;
     public GameObject _CloneProduct;
+    public bool isNewSpace;
     private void Awake()
     {
         _Instance = this;
@@ -70,7 +71,7 @@ public class ClickObject : MonoBehaviour
 
                     }
                 }
-                if (hit.collider.gameObject.name == "티셔츠")
+                /*if (hit.collider.gameObject.name == "티셔츠")
                 {
                     //해당 오브젝트 복제
                     _NewSphere =  Instantiate(UICtrl._Instance.rollerSphere, Camera.main.transform.position, Quaternion.identity);
@@ -82,11 +83,13 @@ public class ClickObject : MonoBehaviour
                     //뒤로가기 버튼 보이게
                     UICtrl._Instance.BackToShoppingBtn.SetActive(true);
                 }
+                */
                 foreach(string s in ChangeSpace._Instance.spaceDict.Keys)
                 {
-                    //Debug.Log(s); //키들
+                    Debug.Log(s); //키들
                     string[] values;
                     ChangeSpace._Instance.spaceDict.TryGetValue(s, out values);
+                  
                     if(Array.Exists(values, x => x.Equals(hit.collider.gameObject.name)))
                     {
                         Debug.Log(s + "공간으로 이동");
@@ -97,10 +100,12 @@ public class ClickObject : MonoBehaviour
                             case "롤러장": _NewSphere = Instantiate(UICtrl._Instance.rollerSphere, Camera.main.transform.position, Quaternion.identity); break;
                             case "도로": _NewSphere = Instantiate(UICtrl._Instance.roadSphere, Camera.main.transform.position, Quaternion.identity); break;
                             case "농구장": _NewSphere = Instantiate(UICtrl._Instance.basketballSphere, Camera.main.transform.position, Quaternion.identity); break;
-                            case "가을": _NewSphere = Instantiate(UICtrl._Instance.fallSphere, Camera.main.transform.position, Quaternion.identity); break;
+                            case "겨울": _NewSphere = Instantiate(UICtrl._Instance.winterSphere, Camera.main.transform.position, Quaternion.identity); break;
                         }
                         UICtrl._Instance.shoppingCenter.SetActive(false);
                         _CloneProduct = Instantiate(hit.collider.gameObject, this.transform.position + new Vector3(0.0f, 1.5f, -1.0f), Quaternion.Euler(new Vector3(90.0f, 0.0f, 0.0f)));
+                        _CloneProduct.GetComponent<Renderer>().materials = new Material[1] { _CloneProduct.GetComponent<Renderer>().material };
+                        isNewSpace = true;
                         //1,2,3층 패널을 없애고
                         UICtrl._Instance.FloorPanel.SetActive(false);
                         //뒤로가기 버튼 보이게

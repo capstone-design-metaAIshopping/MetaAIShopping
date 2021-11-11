@@ -43,7 +43,7 @@ public class Navigation : MonoBehaviour
 
     private SpeechToTextService _service;
     #endregion
-
+    public static Navigation _Instance;
     NavMeshAgent player;
     //NavMeshPath path;
     LineRenderer line;
@@ -55,7 +55,10 @@ public class Navigation : MonoBehaviour
     [SerializeField]
     Transform wine;
     GameObject[] products;
-
+    private void Awake()
+    {
+        _Instance = this;
+    }
     void Start()
     {
         // LogSystem.InstallDefaultReactors();
@@ -65,14 +68,17 @@ public class Navigation : MonoBehaviour
         player = GetComponent<NavMeshAgent>();
         //path = new NavMeshPath();
         line = GetComponent<LineRenderer>();
-        _service.RecognizeModel = (string.IsNullOrEmpty(_recognizeModel) ? "ko-KR_BroadbandModel" : _recognizeModel);
+       /// _service.RecognizeModel = (string.IsNullOrEmpty(_recognizeModel) ? "ko-KR_BroadbandModel" : _recognizeModel);
     }
 
     public void ClickAgent()
     {
         LogSystem.InstallDefaultReactors();
         Runnable.Run(CreateService());
-       
+    }
+    public void StopAgent()
+    {
+        StopRecording();
     }
     private IEnumerator CreateService()
     {

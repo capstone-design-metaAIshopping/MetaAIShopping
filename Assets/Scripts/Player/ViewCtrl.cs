@@ -8,7 +8,10 @@ public class ViewCtrl : MonoBehaviour
     public static ViewCtrl _Instance;
     Rigidbody rb;
     NavMeshAgent ag;
+    public bool isNewSpace;
 
+    public GameObject _NewSphere;
+    public GameObject _CloneProduct;
     private void Awake()
     {
         _Instance = this;
@@ -49,15 +52,22 @@ public class ViewCtrl : MonoBehaviour
     public void Move1F()
     {
         //transform.localPosition = new Vector3(0f, 1.6f, 0f);
+        this.gameObject.GetComponent<NavMeshAgent>().enabled = false;
         transform.localPosition = new Vector3(0f, 0f, 0f);
+        this.gameObject.GetComponent<NavMeshAgent>().enabled = true;
+
     }
     public void Move2F()
     {
+        this.gameObject.GetComponent<NavMeshAgent>().enabled = false;
         transform.localPosition = new Vector3(0f, 4.011877f, 0f);
+        this.gameObject.GetComponent<NavMeshAgent>().enabled = true;
     }
     public void Move3F()
     {
+        this.gameObject.GetComponent<NavMeshAgent>().enabled = false;
         transform.localPosition = new Vector3(0f, 8.014086f, 0f);
+        this.gameObject.GetComponent<NavMeshAgent>().enabled = true;
     }
 
     public void Move4F()
