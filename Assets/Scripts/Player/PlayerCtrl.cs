@@ -1,24 +1,34 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.XR.Management;
 
 public class PlayerCtrl : MonoBehaviour
 {
-    public float MoveSpeed = 3.0f;
+    public float MoveSpeed = 5.0f;
     private float v;
     float deltaS;
-
+   // public Slider speedSlider;
+   // public Slider volumeSlider;
     private Vector2 lastPosInput;
-    //private GameObject MainCamera_;
-    private float gravity = 19.6f;
 
+    public GameObject boyoung;
+    //private GameObject MainCamera_;
+
+    public static PlayerCtrl _Instance;
+
+    private void Awake()
+    {
+        _Instance = this;
+    }
     // Start is called before the first frame update
     void Start()
     {
         deltaS = MoveSpeed * Time.deltaTime;
         lastPosInput = Vector2.zero;
+       // speedSlider.value = 3.0f;
         // MainCamera_ = transform.GetChild(0).gameObject;
     }
 
@@ -37,9 +47,6 @@ public class PlayerCtrl : MonoBehaviour
     //Move함수 내용은 세희가 바꿔쥬쎼용~~ 지금 이게 너무 안좋아서,,
     void Move()
     {
-
-
-        
         if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.UpArrow))
         {
             this.transform.Translate(Vector3.forward * MoveSpeed * Time.deltaTime);
@@ -82,4 +89,42 @@ public class PlayerCtrl : MonoBehaviour
    
     }
 
+  /*  public void ChangeSpeed()
+    {
+        MoveSpeed = speedSlider.value;
+    }
+    public void ChangeVolume()
+    {
+        boyoung.transform.GetComponent<AudioSource>().volume = volumeSlider.value;
+    }
+    */public void ClickSpeedBtn(GameObject g)
+    {
+        if (g.name == "Slow")
+        {
+            MoveSpeed = 3.0f;
+        }
+        else if (g.name == "Middle")
+        {
+            MoveSpeed = 4.0f;
+        }
+        else
+        {
+            MoveSpeed = 5.0f;
+        }
+    }
+    public void ClickVolBtn(GameObject g)
+    {
+        if (g.name == "small")
+        {
+            boyoung.transform.GetComponent<AudioSource>().volume = 0.1f;
+        }
+        else if (g.name == "Middle")
+        {
+            boyoung.transform.GetComponent<AudioSource>().volume = 0.5f;
+        }
+        else
+        {
+            boyoung.transform.GetComponent<AudioSource>().volume = 1.0f;
+        }
+    }
 }

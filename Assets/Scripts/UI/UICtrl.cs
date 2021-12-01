@@ -6,6 +6,7 @@ using UnityEngine.AI;
 public class UICtrl : MonoBehaviour
 {
     public static UICtrl _Instance;
+    public Text debugText;
     [Header("Product Info")]
     bool open_Product_Info;
     public GameObject Product_Info_Panel;
@@ -43,7 +44,7 @@ public class UICtrl : MonoBehaviour
     public GameObject houseSphere;
     public GameObject roadSphere;
     public GameObject basketballSphere;
-    public GameObject fallSphere;
+    public GameObject winterSphere;
     private void Awake()
     {
         _Instance = this;
@@ -58,15 +59,9 @@ public class UICtrl : MonoBehaviour
     }
     public void OpenClose_Product_Info()
     {
-        if (open_Product_Info)
+        Product_Info_Panel.SetActive(!Product_Info_Panel.activeSelf);
+        if(Product_Info_Panel.activeSelf)
         {
-            Product_Info_Panel.SetActive(false);
-            open_Product_Info = false;
-        }
-        else
-        {
-            Product_Info_Panel.SetActive(true);
-            open_Product_Info = true;
             //다른거 다 닫기
             Buy_List_Panel.SetActive(false);
             Cart_List_Panel.SetActive(false);
@@ -137,10 +132,19 @@ public class UICtrl : MonoBehaviour
         Agent_voice_Panel.SetActive(!Agent_voice_Panel.activeSelf);
         if (Agent_voice_Panel.activeSelf)
         {
+            // PlayerCtrl._Instance.transform.GetComponent<Navigation>().enabled = true;
+            Navigation._Instance.ClickAgent();
             ResultsField.gameObject.SetActive(true);
+            //다른거 다 닫기
+            Setting_Panel.SetActive(false);
+            Product_Info_Panel.SetActive(false);
+            Buy_List_Panel.SetActive(false);
+            Cart_List_Panel.SetActive(false);
         }
         else
         {
+            Navigation._Instance.StopAgent();
+            //PlayerCtrl._Instance.transform.GetComponent<Navigation>().enabled = false;
             ResultsField.gameObject.SetActive(false);
             ViewCtrl._Instance.transform.GetComponent<NavMeshAgent>().isStopped = true;
             ViewCtrl._Instance.transform.GetComponent<NavMeshAgent>().ResetPath();
@@ -169,8 +173,20 @@ public class UICtrl : MonoBehaviour
         BackToShoppingBtn.SetActive(false);
         shoppingCenter.SetActive(true);
         Destroy(ClickObject._Instance._NewSphere);
+        Destroy(ViewCtrl._Instance._NewSphere);
         Destroy(ClickObject._Instance._CloneProduct);
+        Destroy(ViewCtrl._Instance._CloneProduct);
         Product_Info_Panel.SetActive(false);
+        ClickObject._Instance.isNewSpace = false;
+        ViewCtrl._Instance.isNewSpace = false;
+        PlayerCtrl._Instance.boyoung.SetActive(true);
+
     }
 
+    public void ClickPurchaseFinish()
+    {
+        NoticeCtrl._Instance.CreateNotice("구매가 완료되었습니다.", true);
+    }
+
+    
 }

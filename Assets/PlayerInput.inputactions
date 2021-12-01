@@ -14,9 +14,17 @@
                     "interactions": ""
                 },
                 {
-                    "name": "trigger",
+                    "name": "triggerLeft",
                     "type": "Button",
                     "id": "f5cb2c61-1076-48a2-acdb-6ce9b04cc5b6",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "triggerRight",
+                    "type": "Button",
+                    "id": "265edb40-fbe5-4d4c-af19-a3e46899ec5a",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": ""
@@ -52,7 +60,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "trigger",
+                    "action": "triggerLeft",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -63,7 +71,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "trigger",
+                    "action": "triggerRight",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
