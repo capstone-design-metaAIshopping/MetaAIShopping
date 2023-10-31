@@ -1,11 +1,13 @@
 # MetaAIShopping
 
-🏆한이음 ICT 공모전 <동상> 수상🏆
+🏆[2021 한이음 ICT 공모전 <동상>](https://www.hanium.or.kr/portal/project/awardList.do#) 수상🏆
 
 시공간을 뛰어넘는 새로운 가상 복합 쇼핑몰
 
 ![image](https://github.com/capstone-design-metaAIshopping/MetaAIShopping/assets/28985207/d2353a91-5bf0-419a-b8d0-db90d1d9b59d)
 <br>
+# 작품 구성도
+![image](https://github.com/capstone-design-metaAIshopping/MetaAIShopping/assets/28985207/835156c6-c84b-472a-9f81-586666c7aa5e)
 
 # AI를 통해 복원한 3D 제품
   한장의 2D 이미지로 3D 모델 생성.
